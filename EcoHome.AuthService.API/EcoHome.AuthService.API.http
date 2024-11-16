@@ -1,0 +1,6 @@
+@EcoHome.AuthService.API_HostAddress = http://localhost:5125
+
+GET {{EcoHome.AuthService.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

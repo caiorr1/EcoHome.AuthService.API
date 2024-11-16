@@ -1,0 +1,79 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34902.65
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EcoHome.AuthService.API", "EcoHome.AuthService.API\EcoHome.AuthService.API.csproj", "{45ED11F8-837B-4B70-888C-6A1A3C6EF9E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0 - Presentation", "0 - Presentation", "{F5F843DD-16C6-473D-BFD4-882A342E6170}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Application", "1 - Application", "{EC9020A4-B546-4FAE-9781-BA6E4FD539A0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - Domain", "2 - Domain", "{9FA09EA3-EB9A-4061-8D39-52C8395D994D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Infrastructure", "3 - Infrastructure", "{5C6C6A01-EA64-42E3-9755-297E020AF118}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 - Tests", "4 - Tests", "{A32F6AC3-5E97-4B74-932F-A6A025E580C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EcoHome.AuthService.Application", "EcoHome.AuthService.Application\EcoHome.AuthService.Application.csproj", "{DF772A20-078E-44AE-BAF2-89CFEC1FF2EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EcoHome.AuthService.Domain", "EcoHome.AuthService.Domain\EcoHome.AuthService.Domain.csproj", "{AA930856-5839-4990-A4DC-AD0DAD47A5C2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{8F6886BC-40FE-488A-8715-5D62126C5A94}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ioc", "Ioc", "{D9B62193-0C50-4E47-B537-0DA8DDFB5C1D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EcoHome.AuthService.Infrastructure.Data", "EcoHome.AuthService.Infrastructure.Data\EcoHome.AuthService.Infrastructure.Data.csproj", "{497E05F5-5766-4457-9732-3F1980E40845}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EcoHome.AuthService.Infrastructure.IoC", "EcoHome.AuthService.Infrastructure.IoC\EcoHome.AuthService.Infrastructure.IoC.csproj", "{C5D4D9C6-FB91-4540-BCC0-40D4F90A3E6F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EcoHome.AuthService.Tests", "EcoHome.AuthService.Tests\EcoHome.AuthService.Tests.csproj", "{44D27B3E-F010-4EB7-9AE3-5A3D27EEC128}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{45ED11F8-837B-4B70-888C-6A1A3C6EF9E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45ED11F8-837B-4B70-888C-6A1A3C6EF9E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45ED11F8-837B-4B70-888C-6A1A3C6EF9E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45ED11F8-837B-4B70-888C-6A1A3C6EF9E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF772A20-078E-44AE-BAF2-89CFEC1FF2EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF772A20-078E-44AE-BAF2-89CFEC1FF2EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF772A20-078E-44AE-BAF2-89CFEC1FF2EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF772A20-078E-44AE-BAF2-89CFEC1FF2EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA930856-5839-4990-A4DC-AD0DAD47A5C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA930856-5839-4990-A4DC-AD0DAD47A5C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA930856-5839-4990-A4DC-AD0DAD47A5C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA930856-5839-4990-A4DC-AD0DAD47A5C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{497E05F5-5766-4457-9732-3F1980E40845}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{497E05F5-5766-4457-9732-3F1980E40845}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{497E05F5-5766-4457-9732-3F1980E40845}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{497E05F5-5766-4457-9732-3F1980E40845}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5D4D9C6-FB91-4540-BCC0-40D4F90A3E6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5D4D9C6-FB91-4540-BCC0-40D4F90A3E6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5D4D9C6-FB91-4540-BCC0-40D4F90A3E6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5D4D9C6-FB91-4540-BCC0-40D4F90A3E6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44D27B3E-F010-4EB7-9AE3-5A3D27EEC128}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44D27B3E-F010-4EB7-9AE3-5A3D27EEC128}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44D27B3E-F010-4EB7-9AE3-5A3D27EEC128}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44D27B3E-F010-4EB7-9AE3-5A3D27EEC128}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{45ED11F8-837B-4B70-888C-6A1A3C6EF9E8} = {F5F843DD-16C6-473D-BFD4-882A342E6170}
+		{DF772A20-078E-44AE-BAF2-89CFEC1FF2EF} = {EC9020A4-B546-4FAE-9781-BA6E4FD539A0}
+		{AA930856-5839-4990-A4DC-AD0DAD47A5C2} = {9FA09EA3-EB9A-4061-8D39-52C8395D994D}
+		{8F6886BC-40FE-488A-8715-5D62126C5A94} = {5C6C6A01-EA64-42E3-9755-297E020AF118}
+		{D9B62193-0C50-4E47-B537-0DA8DDFB5C1D} = {5C6C6A01-EA64-42E3-9755-297E020AF118}
+		{497E05F5-5766-4457-9732-3F1980E40845} = {8F6886BC-40FE-488A-8715-5D62126C5A94}
+		{C5D4D9C6-FB91-4540-BCC0-40D4F90A3E6F} = {D9B62193-0C50-4E47-B537-0DA8DDFB5C1D}
+		{44D27B3E-F010-4EB7-9AE3-5A3D27EEC128} = {A32F6AC3-5E97-4B74-932F-A6A025E580C7}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4984EB9D-DE70-4C32-B7B4-27F00836D4CE}
+	EndGlobalSection
+EndGlobal
