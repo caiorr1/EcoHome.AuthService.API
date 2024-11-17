@@ -12,8 +12,8 @@ using Oracle.EntityFrameworkCore.Metadata;
 namespace EcoHome.AuthService.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(AuthDbContext))]
-    [Migration("20241116214138_initdb")]
-    partial class initdb
+    [Migration("20241117183601_AjusteCreatedAtNovo")]
+    partial class AjusteCreatedAtNovo
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -137,7 +137,9 @@ namespace EcoHome.AuthService.Infrastructure.Data.Migrations
                     OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("TIMESTAMP(7)");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TIMESTAMP(7)")
+                        .HasDefaultValueSql("SYSTIMESTAMP AT TIME ZONE 'UTC'");
 
                     b.Property<string>("Email")
                         .IsRequired()

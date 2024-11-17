@@ -26,6 +26,12 @@ namespace EcoHome.AuthService.Infrastructure.Data
                 .Property(u => u.PasswordHash)
                 .IsRequired();
 
+            modelBuilder.Entity<UserEntity>()
+                .Property(u => u.CreatedAt)
+                .HasDefaultValueSql("SYSTIMESTAMP AT TIME ZONE 'UTC'")
+                .IsRequired();
+
+
             // Configuração da DeviceEntity
             modelBuilder.Entity<DeviceEntity>().HasKey(d => d.Id);
 

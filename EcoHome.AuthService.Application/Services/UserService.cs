@@ -1,6 +1,7 @@
 ﻿using EcoHome.AuthService.Domain.Dtos;
 using EcoHome.AuthService.Domain.Entities;
 using EcoHome.AuthService.Domain.Interfaces;
+using System;
 using System.Threading.Tasks;
 
 namespace EcoHome.AuthService.Application.Services
@@ -42,7 +43,8 @@ namespace EcoHome.AuthService.Application.Services
             {
                 Name = dto.Name,
                 Email = dto.Email,
-                PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password)
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password),
+                CreatedAt = DateTime.UtcNow // Adicionando data de criação explícita
             };
 
             await _userRepository.AddAsync(userEntity);
@@ -51,7 +53,8 @@ namespace EcoHome.AuthService.Application.Services
             {
                 Id = userEntity.Id,
                 Name = userEntity.Name,
-                Email = userEntity.Email
+                Email = userEntity.Email,
+                CreatedAt = userEntity.CreatedAt
             };
         }
 
@@ -69,7 +72,9 @@ namespace EcoHome.AuthService.Application.Services
             {
                 Id = userEntity.Id,
                 Name = userEntity.Name,
-                Email = userEntity.Email
+                Email = userEntity.Email,
+                CreatedAt = userEntity.CreatedAt,
+                UpdatedAt = userEntity.UpdatedAt
             };
         }
 

@@ -25,9 +25,25 @@ namespace EcoHome.AuthService.API.Controllers
         public ConsumptionLogController(ConsumptionLogService logService)
         {
             _logService = logService;
-            // Configurando os caminhos para o arquivo CSV e o modelo salvo
             _dataPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ML", "Data", "consumption_data.csv");
-            _modelPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ML", "Model", "consumption_model.zip");
+            _modelPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ML", "Modelo", "consumption_model.zip");
+
+            // Garantir que os diretórios de dados e modelo existam
+            EnsureDirectoryExists(_dataPath);
+            EnsureDirectoryExists(_modelPath);
+        }
+
+        /// <summary>
+        /// Garante que o diretório para um caminho de arquivo exista.
+        /// </summary>
+        /// <param name="path">Caminho do arquivo.</param>
+        private void EnsureDirectoryExists(string path)
+        {
+            var directory = Path.GetDirectoryName(path);
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
         }
 
         /// <summary>
@@ -104,9 +120,9 @@ namespace EcoHome.AuthService.API.Controllers
                 if (!System.IO.File.Exists(_dataPath))
                     return NotFound("Arquivo de dados de consumo não encontrado.");
 
-                // Treinar o modelo
+                // Treinar o modelo usando FastTree
                 var trainer = new ConsumptionModelTrainer();
-                trainer.TrainAndSaveModel(_dataPath, _modelPath);
+                trainer.TrainAndSaveModelUsingFastTree(_dataPath, _modelPath);
                 return Ok("Modelo treinado e salvo com sucesso.");
             }
             catch (System.Exception ex)

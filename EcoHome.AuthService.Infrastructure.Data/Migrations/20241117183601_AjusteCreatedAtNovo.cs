@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace EcoHome.AuthService.Infrastructure.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class initdb : Migration
+    public partial class AjusteCreatedAtNovo : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -20,7 +20,7 @@ namespace EcoHome.AuthService.Infrastructure.Data.Migrations
                     Name = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
                     Email = table.Column<string>(type: "NVARCHAR2(100)", maxLength: 100, nullable: false),
                     PasswordHash = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false, defaultValueSql: "SYSTIMESTAMP AT TIME ZONE 'UTC'"),
                     UpdatedAt = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: true)
                 },
                 constraints: table =>

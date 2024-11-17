@@ -27,7 +27,6 @@ namespace EcoHome.AuthService.Application.Services
         /// <exception cref="ArgumentException">Lançado quando os dados são inválidos.</exception>
         public async Task CreateAlertAsync(AlertCreateDto dto)
         {
-            // Validações omitidas para brevidade.
             var alert = new AlertEntity
             {
                 Message = dto.Message,
@@ -36,24 +35,6 @@ namespace EcoHome.AuthService.Application.Services
             };
 
             await _alertRepository.AddAsync(alert);
-        }
-
-        /// <summary>
-        /// Obtém todos os alertas associados a um usuário.
-        /// </summary>
-        /// <param name="userId">O ID do usuário.</param>
-        /// <returns>Uma lista de alertas do usuário.</returns>
-        public async Task<IEnumerable<AlertResponseDto>> GetAlertsByUserIdAsync(int userId)
-        {
-            var alerts = await _alertRepository.GetByUserIdAsync(userId);
-
-            return alerts.Select(alert => new AlertResponseDto
-            {
-                Id = alert.Id,
-                Message = alert.Message,
-                Status = alert.Status.ToString(),
-                CreatedAt = alert.CreatedAt
-            });
         }
 
         /// <summary>
@@ -73,6 +54,24 @@ namespace EcoHome.AuthService.Application.Services
 
             await _alertRepository.UpdateAsync(alert);
             return true;
+        }
+
+        /// <summary>
+        /// Obtém todos os alertas associados a um usuário.
+        /// </summary>
+        /// <param name="userId">ID do usuário.</param>
+        /// <returns>Uma lista de alertas do usuário.</returns>
+        public async Task<IEnumerable<AlertResponseDto>> GetAlertsByUserIdAsync(int userId)
+        {
+            var alerts = await _alertRepository.GetByUserIdAsync(userId);
+            return alerts.Select(a => new AlertResponseDto
+            {
+                Id = a.Id,
+                Message = a.Message,
+                Status = a.Status.ToString(),
+                CreatedAt = a.CreatedAt,
+                UpdatedAt = a.UpdatedAt
+            });
         }
 
         /// <summary>

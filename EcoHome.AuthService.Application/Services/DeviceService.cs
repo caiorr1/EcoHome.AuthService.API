@@ -31,13 +31,13 @@ namespace EcoHome.AuthService.Application.Services
         /// <exception cref="ArgumentException">Lançado quando os dados são inválidos.</exception>
         public async Task<DeviceResponseDto> AddDeviceAsync(DeviceCreateDto dto)
         {
-            // Validações omitidas para brevidade.
             var device = new DeviceEntity
             {
                 Name = dto.Name,
                 PowerConsumption = dto.PowerConsumption,
                 Location = dto.Location,
-                UserId = dto.UserId
+                UserId = dto.UserId,
+                CreatedAt = DateTime.UtcNow
             };
 
             await _deviceRepository.AddAsync(device);
@@ -48,27 +48,9 @@ namespace EcoHome.AuthService.Application.Services
                 Name = device.Name,
                 PowerConsumption = device.PowerConsumption,
                 Location = device.Location,
-                Status = device.Status.ToString()
+                Status = device.Status.ToString(),
+                CreatedAt = device.CreatedAt
             };
-        }
-
-        /// <summary>
-        /// Obtém todos os dispositivos associados a um usuário.
-        /// </summary>
-        /// <param name="userId">O ID do usuário.</param>
-        /// <returns>Uma lista de dispositivos do usuário.</returns>
-        public async Task<IEnumerable<DeviceResponseDto>> GetDevicesByUserIdAsync(int userId)
-        {
-            var devices = await _deviceRepository.GetByUserIdAsync(userId);
-
-            return devices.Select(device => new DeviceResponseDto
-            {
-                Id = device.Id,
-                Name = device.Name,
-                PowerConsumption = device.PowerConsumption,
-                Location = device.Location,
-                Status = device.Status.ToString()
-            });
         }
 
         /// <summary>
@@ -89,6 +71,26 @@ namespace EcoHome.AuthService.Application.Services
 
             await _deviceRepository.UpdateAsync(device);
             return true;
+        }
+
+        /// <summary>
+        /// Obtém todos os dispositivos associados a um usuário.
+        /// </summary>
+        /// <param name="userId">ID do usuário.</param>
+        /// <returns>Uma lista de dispositivos do usuário.</returns>
+        public async Task<IEnumerable<DeviceResponseDto>> GetDevicesByUserIdAsync(int userId)
+        {
+            var devices = await _deviceRepository.GetByUserIdAsync(userId);
+            return devices.Select(device => new DeviceResponseDto
+            {
+                Id = device.Id,
+                Name = device.Name,
+                PowerConsumption = device.PowerConsumption,
+                Location = device.Location,
+                Status = device.Status.ToString(),
+                CreatedAt = device.CreatedAt,
+                UpdatedAt = device.UpdatedAt
+            });
         }
 
         /// <summary>

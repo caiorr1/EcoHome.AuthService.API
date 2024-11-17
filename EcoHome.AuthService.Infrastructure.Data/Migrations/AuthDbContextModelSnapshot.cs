@@ -134,7 +134,9 @@ namespace EcoHome.AuthService.Infrastructure.Data.Migrations
                     OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("TIMESTAMP(7)");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TIMESTAMP(7)")
+                        .HasDefaultValueSql("SYSTIMESTAMP AT TIME ZONE 'UTC'");
 
                     b.Property<string>("Email")
                         .IsRequired()
