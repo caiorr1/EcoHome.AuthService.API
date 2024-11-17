@@ -59,5 +59,38 @@ namespace EcoHome.AuthService.Application.Services
                 Timestamp = log.Timestamp
             });
         }
+
+        /// <summary>
+        /// Atualiza um log de consumo existente.
+        /// </summary>
+        /// <param name="id">ID do log de consumo.</param>
+        /// <param name="dto">Dados atualizados do log de consumo.</param>
+        /// <returns>Verdadeiro se a atualização for bem-sucedida; caso contrário, falso.</returns>
+        public async Task<bool> UpdateLogAsync(int id, ConsumptionLogCreateDto dto)
+        {
+            var log = await _logRepository.GetByIdAsync(id);
+            if (log == null) return false;
+
+            log.Consumption = dto.Consumption;
+            log.Timestamp = dto.Timestamp;
+            log.UpdatedAt = DateTime.UtcNow;
+
+            await _logRepository.UpdateAsync(log);
+            return true;
+        }
+
+        /// <summary>
+        /// Exclui um log de consumo.
+        /// </summary>
+        /// <param name="id">ID do log de consumo.</param>
+        /// <returns>Verdadeiro se a exclusão for bem-sucedida; caso contrário, falso.</returns>
+        public async Task<bool> DeleteLogAsync(int id)
+        {
+            var log = await _logRepository.GetByIdAsync(id);
+            if (log == null) return false;
+
+            await _logRepository.DeleteAsync(log);
+            return true;
+        }
     }
 }

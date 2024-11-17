@@ -49,5 +49,40 @@ namespace EcoHome.AuthService.API.Controllers
             var result = await _deviceService.GetDevicesByUserIdAsync(userId);
             return Ok(result);
         }
+
+        /// <summary>
+        /// Atualiza um dispositivo existente.
+        /// </summary>
+        /// <param name="id">ID do dispositivo.</param>
+        /// <param name="dto">Dados atualizados do dispositivo.</param>
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateDevice(int id, [FromBody] DeviceCreateDto dto)
+        {
+            if (id <= 0 || dto == null || !ModelState.IsValid)
+                return BadRequest("Dados inválidos");
+
+            var result = await _deviceService.UpdateDeviceAsync(id, dto);
+            if (!result)
+                return NotFound($"Dispositivo com ID {id} não encontrado");
+
+            return Ok("Dispositivo atualizado com sucesso");
+        }
+
+        /// <summary>
+        /// Exclui um dispositivo.
+        /// </summary>
+        /// <param name="id">ID do dispositivo.</param>
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteDevice(int id)
+        {
+            if (id <= 0)
+                return BadRequest("ID inválido");
+
+            var result = await _deviceService.DeleteDeviceAsync(id);
+            if (!result)
+                return NotFound($"Dispositivo com ID {id} não encontrado");
+
+            return Ok("Dispositivo excluído com sucesso");
+        }
     }
 }

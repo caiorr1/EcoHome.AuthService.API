@@ -16,10 +16,4 @@
 		<ProjectReference Include="..\EcoHome.AuthService.Domain\EcoHome.AuthService.Domain.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <None Update="ML\Data\consumption_data.csv">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </None>
-	</ItemGroup>
-
 </Project>

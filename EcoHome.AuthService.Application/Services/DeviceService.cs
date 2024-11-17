@@ -1,6 +1,9 @@
 ﻿using EcoHome.AuthService.Domain.Dtos;
 using EcoHome.AuthService.Domain.Entities;
 using EcoHome.AuthService.Domain.Interfaces;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace EcoHome.AuthService.Application.Services
 {
@@ -66,6 +69,40 @@ namespace EcoHome.AuthService.Application.Services
                 Location = device.Location,
                 Status = device.Status.ToString()
             });
+        }
+
+        /// <summary>
+        /// Atualiza um dispositivo existente.
+        /// </summary>
+        /// <param name="id">ID do dispositivo.</param>
+        /// <param name="dto">Dados atualizados do dispositivo.</param>
+        /// <returns>Verdadeiro se a atualização for bem-sucedida; caso contrário, falso.</returns>
+        public async Task<bool> UpdateDeviceAsync(int id, DeviceCreateDto dto)
+        {
+            var device = await _deviceRepository.GetByIdAsync(id);
+            if (device == null) return false;
+
+            device.Name = dto.Name;
+            device.PowerConsumption = dto.PowerConsumption;
+            device.Location = dto.Location;
+            device.UpdatedAt = DateTime.UtcNow;
+
+            await _deviceRepository.UpdateAsync(device);
+            return true;
+        }
+
+        /// <summary>
+        /// Exclui um dispositivo.
+        /// </summary>
+        /// <param name="id">ID do dispositivo.</param>
+        /// <returns>Verdadeiro se a exclusão for bem-sucedida; caso contrário, falso.</returns>
+        public async Task<bool> DeleteDeviceAsync(int id)
+        {
+            var device = await _deviceRepository.GetByIdAsync(id);
+            if (device == null) return false;
+
+            await _deviceRepository.DeleteAsync(device);
+            return true;
         }
     }
 }

@@ -52,5 +52,40 @@ namespace EcoHome.AuthService.API.Controllers
 
             return Ok(result);
         }
+
+        /// <summary>
+        /// Atualiza um usuário existente.
+        /// </summary>
+        /// <param name="email">E-mail do usuário.</param>
+        /// <param name="dto">Dados atualizados do usuário.</param>
+        [HttpPut("{email}")]
+        public async Task<IActionResult> UpdateUser(string email, [FromBody] UserCreateDto dto)
+        {
+            if (string.IsNullOrWhiteSpace(email) || dto == null || !ModelState.IsValid)
+                return BadRequest("Dados inválidos");
+
+            var result = await _userService.UpdateUserAsync(email, dto);
+            if (!result)
+                return NotFound($"Usuário com e-mail {email} não encontrado");
+
+            return Ok("Usuário atualizado com sucesso");
+        }
+
+        /// <summary>
+        /// Exclui um usuário.
+        /// </summary>
+        /// <param name="email">E-mail do usuário.</param>
+        [HttpDelete("{email}")]
+        public async Task<IActionResult> DeleteUser(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+                return BadRequest("E-mail inválido");
+
+            var result = await _userService.DeleteUserAsync(email);
+            if (!result)
+                return NotFound($"Usuário com e-mail {email} não encontrado");
+
+            return Ok("Usuário excluído com sucesso");
+        }
     }
 }

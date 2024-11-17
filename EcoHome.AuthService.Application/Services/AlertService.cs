@@ -55,5 +55,38 @@ namespace EcoHome.AuthService.Application.Services
                 CreatedAt = alert.CreatedAt
             });
         }
+
+        /// <summary>
+        /// Atualiza um alerta existente.
+        /// </summary>
+        /// <param name="id">ID do alerta.</param>
+        /// <param name="dto">Dados atualizados do alerta.</param>
+        /// <returns>Verdadeiro se a atualização for bem-sucedida; caso contrário, falso.</returns>
+        public async Task<bool> UpdateAlertAsync(int id, AlertCreateDto dto)
+        {
+            var alert = await _alertRepository.GetByIdAsync(id);
+            if (alert == null) return false;
+
+            alert.Message = dto.Message;
+            alert.Status = dto.Status;
+            alert.UpdatedAt = DateTime.UtcNow;
+
+            await _alertRepository.UpdateAsync(alert);
+            return true;
+        }
+
+        /// <summary>
+        /// Exclui um alerta.
+        /// </summary>
+        /// <param name="id">ID do alerta.</param>
+        /// <returns>Verdadeiro se a exclusão for bem-sucedida; caso contrário, falso.</returns>
+        public async Task<bool> DeleteAlertAsync(int id)
+        {
+            var alert = await _alertRepository.GetByIdAsync(id);
+            if (alert == null) return false;
+
+            await _alertRepository.DeleteAsync(alert);
+            return true;
+        }
     }
 }

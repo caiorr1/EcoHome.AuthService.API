@@ -48,5 +48,40 @@ namespace EcoHome.AuthService.API.Controllers
             var result = await _alertService.GetAlertsByUserIdAsync(userId);
             return Ok(result);
         }
+
+        /// <summary>
+        /// Atualiza um alerta existente.
+        /// </summary>
+        /// <param name="id">ID do alerta.</param>
+        /// <param name="dto">Dados atualizados do alerta.</param>
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateAlert(int id, [FromBody] AlertCreateDto dto)
+        {
+            if (id <= 0 || dto == null || !ModelState.IsValid)
+                return BadRequest("Dados inválidos");
+
+            var result = await _alertService.UpdateAlertAsync(id, dto);
+            if (!result)
+                return NotFound($"Alerta com ID {id} não encontrado");
+
+            return Ok("Alerta atualizado com sucesso");
+        }
+
+        /// <summary>
+        /// Exclui um alerta.
+        /// </summary>
+        /// <param name="id">ID do alerta.</param>
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAlert(int id)
+        {
+            if (id <= 0)
+                return BadRequest("ID inválido");
+
+            var result = await _alertService.DeleteAlertAsync(id);
+            if (!result)
+                return NotFound($"Alerta com ID {id} não encontrado");
+
+            return Ok("Alerta excluído com sucesso");
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using EcoHome.AuthService.Domain.Dtos;
 using EcoHome.AuthService.Domain.Entities;
 using EcoHome.AuthService.Domain.Interfaces;
+using System.Threading.Tasks;
 
 namespace EcoHome.AuthService.Application.Services
 {
@@ -70,6 +71,39 @@ namespace EcoHome.AuthService.Application.Services
                 Name = userEntity.Name,
                 Email = userEntity.Email
             };
+        }
+
+        /// <summary>
+        /// Atualiza um usuário existente.
+        /// </summary>
+        /// <param name="email">E-mail do usuário.</param>
+        /// <param name="dto">Dados atualizados do usuário.</param>
+        /// <returns>Verdadeiro se a atualização for bem-sucedida; caso contrário, falso.</returns>
+        public async Task<bool> UpdateUserAsync(string email, UserCreateDto dto)
+        {
+            var user = await _userRepository.GetByEmailAsync(email);
+            if (user == null) return false;
+
+            user.Name = dto.Name;
+            user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password);
+            user.UpdatedAt = DateTime.UtcNow;
+
+            await _userRepository.UpdateAsync(user);
+            return true;
+        }
+
+        /// <summary>
+        /// Exclui um usuário.
+        /// </summary>
+        /// <param name="email">E-mail do usuário.</param>
+        /// <returns>Verdadeiro se a exclusão for bem-sucedida; caso contrário, falso.</returns>
+        public async Task<bool> DeleteUserAsync(string email)
+        {
+            var user = await _userRepository.GetByEmailAsync(email);
+            if (user == null) return false;
+
+            await _userRepository.DeleteAsync(user);
+            return true;
         }
     }
 }

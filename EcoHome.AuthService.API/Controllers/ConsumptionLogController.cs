@@ -26,8 +26,8 @@ namespace EcoHome.AuthService.API.Controllers
         {
             _logService = logService;
             // Configurando os caminhos para o arquivo CSV e o modelo salvo
-            _dataPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ML", "Data", "consumption-data.csv");
-            _modelPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ML", "Model", "consumption-model.zip");
+            _dataPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ML", "Data", "consumption_data.csv");
+            _modelPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ML", "Model", "consumption_model.zip");
         }
 
         /// <summary>
@@ -54,6 +54,41 @@ namespace EcoHome.AuthService.API.Controllers
         {
             var result = await _logService.GetLogsByDeviceIdAsync(deviceId);
             return Ok(result);
+        }
+
+        /// <summary>
+        /// Atualiza um log de consumo existente.
+        /// </summary>
+        /// <param name="id">ID do log de consumo.</param>
+        /// <param name="dto">Dados atualizados do log.</param>
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateConsumptionLog(int id, [FromBody] ConsumptionLogCreateDto dto)
+        {
+            if (id <= 0 || dto == null || !ModelState.IsValid)
+                return BadRequest("Dados inválidos");
+
+            var result = await _logService.UpdateLogAsync(id, dto);
+            if (!result)
+                return NotFound($"Log de consumo com ID {id} não encontrado");
+
+            return Ok("Log de consumo atualizado com sucesso");
+        }
+
+        /// <summary>
+        /// Exclui um log de consumo.
+        /// </summary>
+        /// <param name="id">ID do log de consumo.</param>
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteConsumptionLog(int id)
+        {
+            if (id <= 0)
+                return BadRequest("ID inválido");
+
+            var result = await _logService.DeleteLogAsync(id);
+            if (!result)
+                return NotFound($"Log de consumo com ID {id} não encontrado");
+
+            return Ok("Log de consumo excluído com sucesso");
         }
 
         /// <summary>
@@ -95,14 +130,13 @@ namespace EcoHome.AuthService.API.Controllers
 
                 DateTime futureDate = DateTime.UtcNow.AddDays(timestamp);
 
-               
                 var consumptionLogDto = new ConsumptionLogCreateDto
                 {
-                    Timestamp = futureDate  
+                    Timestamp = futureDate
                 };
 
                 var predictor = new ConsumptionPredictor(_modelPath);
-                var predictedConsumption = predictor.Predict(consumptionLogDto);  
+                var predictedConsumption = predictor.Predict(consumptionLogDto);
 
                 return Ok(new
                 {

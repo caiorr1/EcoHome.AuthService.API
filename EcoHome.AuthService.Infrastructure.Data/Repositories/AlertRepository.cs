@@ -29,5 +29,22 @@ namespace EcoHome.AuthService.Infrastructure.Data
                 await _context.SaveChangesAsync();
             }
         }
+
+        public async Task<AlertEntity> GetByIdAsync(int id)
+        {
+            return await _context.Set<AlertEntity>().FindAsync(id);
+        }
+
+        public async Task UpdateAsync(AlertEntity alert)
+        {
+            _context.Set<AlertEntity>().Update(alert);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task DeleteAsync(AlertEntity alert)
+        {
+            _context.Set<AlertEntity>().Remove(alert);
+            await _context.SaveChangesAsync();
+        }
     }
 }
