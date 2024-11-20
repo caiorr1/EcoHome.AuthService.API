@@ -28,7 +28,6 @@ namespace EcoHome.AuthService.API.Controllers
             _dataPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ML", "Data", "consumption_data.csv");
             _modelPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ML", "Modelo", "consumption_model.zip");
 
-            // Garantir que os diretórios de dados e modelo existam
             EnsureDirectoryExists(_dataPath);
             EnsureDirectoryExists(_modelPath);
         }
@@ -116,11 +115,9 @@ namespace EcoHome.AuthService.API.Controllers
         {
             try
             {
-                // Verificar se o arquivo de dados existe
                 if (!System.IO.File.Exists(_dataPath))
                     return NotFound("Arquivo de dados de consumo não encontrado.");
 
-                // Treinar o modelo usando FastTree
                 var trainer = new ConsumptionModelTrainer();
                 trainer.TrainAndSaveModelUsingFastTree(_dataPath, _modelPath);
                 return Ok("Modelo treinado e salvo com sucesso.");

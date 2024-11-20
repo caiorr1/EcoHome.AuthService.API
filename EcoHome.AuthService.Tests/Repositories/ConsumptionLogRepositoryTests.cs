@@ -43,6 +43,10 @@ namespace EcoHome.AuthService.Tests.Repositories
         public async Task GetByDeviceId_Should_Return_Correct_Logs()
         {
             var dbContext = GetInMemoryDbContext();
+
+            dbContext.ConsumptionLogs.RemoveRange(dbContext.ConsumptionLogs);
+            await dbContext.SaveChangesAsync();
+
             var repository = new ConsumptionLogRepository(dbContext);
 
             var log1 = new ConsumptionLogEntity { DeviceId = 1, Consumption = 50.0m, Timestamp = DateTime.UtcNow };
@@ -51,10 +55,10 @@ namespace EcoHome.AuthService.Tests.Repositories
             await dbContext.ConsumptionLogs.AddRangeAsync(log1, log2);
             await dbContext.SaveChangesAsync();
 
-            var logs = (await repository.GetByDeviceIdAsync(1)).ToList(); 
+            var logs = (await repository.GetByDeviceIdAsync(1)).ToList();
 
             Assert.NotEmpty(logs);
-            Assert.Equal(2, logs.Count); 
+            Assert.Equal(2, logs.Count);
         }
     }
 }

@@ -14,7 +14,6 @@ namespace EcoHome.AuthService.Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Configuração da UserEntity
             modelBuilder.Entity<UserEntity>().HasKey(u => u.Id);
 
             modelBuilder.Entity<UserEntity>()
@@ -32,7 +31,6 @@ namespace EcoHome.AuthService.Infrastructure.Data
                 .IsRequired();
 
 
-            // Configuração da DeviceEntity
             modelBuilder.Entity<DeviceEntity>().HasKey(d => d.Id);
 
             modelBuilder.Entity<DeviceEntity>()
@@ -43,7 +41,7 @@ namespace EcoHome.AuthService.Infrastructure.Data
             modelBuilder.Entity<DeviceEntity>()
                 .Property(d => d.PowerConsumption)
                 .IsRequired()
-                .HasPrecision(18, 2); // Corrigido para especificar a precisão e escala
+                .HasPrecision(18, 2); 
 
             modelBuilder.Entity<DeviceEntity>()
                 .HasOne(d => d.User)
@@ -51,7 +49,6 @@ namespace EcoHome.AuthService.Infrastructure.Data
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // Configuração da AlertEntity
             modelBuilder.Entity<AlertEntity>().HasKey(a => a.Id);
 
             modelBuilder.Entity<AlertEntity>()
@@ -65,13 +62,12 @@ namespace EcoHome.AuthService.Infrastructure.Data
                 .HasForeignKey(a => a.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // Configuração da ConsumptionLogEntity
             modelBuilder.Entity<ConsumptionLogEntity>().HasKey(cl => cl.Id);
 
             modelBuilder.Entity<ConsumptionLogEntity>()
                 .Property(cl => cl.Consumption)
                 .IsRequired()
-                .HasPrecision(18, 2); // Corrigido para especificar a precisão e escala
+                .HasPrecision(18, 2); 
 
             modelBuilder.Entity<ConsumptionLogEntity>()
                 .HasOne(cl => cl.Device)
@@ -79,7 +75,6 @@ namespace EcoHome.AuthService.Infrastructure.Data
                 .HasForeignKey(cl => cl.DeviceId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // Chamando o método base
             base.OnModelCreating(modelBuilder);
         }
     }

@@ -11,6 +11,6 @@ namespace EcoHome.AuthService.Domain.Dtos
     {
         public string Message { get; set; }
         public int UserId { get; set; }
-        public StatusEnum Status { get; set; } // Propriedade Status ajustada para StatusEnum
+        public StatusEnum Status { get; set; }
     }
 }

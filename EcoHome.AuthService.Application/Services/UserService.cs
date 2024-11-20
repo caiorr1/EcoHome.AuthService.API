@@ -44,7 +44,7 @@ namespace EcoHome.AuthService.Application.Services
                 Name = dto.Name,
                 Email = dto.Email,
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password),
-                CreatedAt = DateTime.UtcNow // Adicionando data de criação explícita
+                CreatedAt = DateTime.UtcNow 
             };
 
             await _userRepository.AddAsync(userEntity);

@@ -26,6 +26,10 @@ namespace EcoHome.AuthService.Tests.Integration
             var userRepo = new UserRepository(dbContext);
             var deviceRepo = new DeviceRepository(dbContext);
 
+            dbContext.Users.RemoveRange(dbContext.Users);
+            dbContext.Devices.RemoveRange(dbContext.Devices);
+            await dbContext.SaveChangesAsync();
+
             var user = new UserEntity
             {
                 Name = "Test User",

@@ -45,8 +45,11 @@ namespace EcoHome.AuthService.Application.ML
 
             var filteredData = _mlContext.Data.FilterRowsByMissingValues(dataView, nameof(ConsumptionLogData.Consumption));
 
-            var pipeline = _mlContext.Transforms.Conversion.ConvertType("DeviceId", outputKind: DataKind.Single)
-                .Append(_mlContext.Transforms.Concatenate("Features", nameof(ConsumptionLogData.Timestamp), "DeviceId"))
+            var pipeline = _mlContext.Transforms.Conversion.MapValueToKey("DeviceId", nameof(ConsumptionLogData.DeviceId))
+                .Append(_mlContext.Transforms.NormalizeMinMax(nameof(ConsumptionLogData.Timestamp)))
+                .Append(_mlContext.Transforms.NormalizeMinMax(nameof(ConsumptionLogData.Consumption)))
+                .Append(_mlContext.Transforms.Categorical.OneHotEncoding("DeviceIdEncoded", "DeviceId"))
+                .Append(_mlContext.Transforms.Concatenate("Features", nameof(ConsumptionLogData.Timestamp), "DeviceIdEncoded"))
                 .Append(_mlContext.Regression.Trainers.FastTree(labelColumnName: nameof(ConsumptionLogData.Consumption)));
 
             Console.WriteLine("Treinando o modelo...");

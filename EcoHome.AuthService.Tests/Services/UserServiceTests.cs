@@ -13,7 +13,6 @@ namespace EcoHome.AuthService.Tests.Services
         [Fact]
         public async Task CreateUser_Should_Return_UserResponseDto()
         {
-            // Arrange
             var mockUserRepository = new Mock<IUserRepository>();
             var userService = new UserService(mockUserRepository.Object);
 
@@ -27,10 +26,8 @@ namespace EcoHome.AuthService.Tests.Services
             mockUserRepository.Setup(repo => repo.AddAsync(It.IsAny<UserEntity>()))
                 .Returns(Task.CompletedTask);
 
-            // Act
             var result = await userService.CreateUserAsync(createDto);
 
-            // Assert
             Assert.NotNull(result);
             Assert.Equal("Test User", result.Name);
             Assert.Equal("test@example.com", result.Email);

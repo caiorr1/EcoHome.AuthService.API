@@ -1,89 +1,158 @@
 
 # EcoHome.AuthService.API
 
-## Visão Geral
-EcoHome.AuthService.API é um microsserviço desenvolvido para gerenciar usuários, dispositivos e logs de consumo de energia no projeto EcoHome. A solução foi projetada utilizando .NET Core, seguindo os princípios de arquitetura limpa (Clean Architecture) e boas práticas de desenvolvimento, com integração de predição de consumo energético utilizando ML.NET.
+## Visão Geral do Projeto
+
+EcoHome.AuthService.API é um serviço desenvolvido para oferecer funcionalidades de autenticação e gerenciamento de usuários, dispositivos e logs de consumo elétrico para o sistema EcoHome, uma solução de monitoramento e gestão de consumo energético em ambientes residenciais. Utilizando .NET e EF Core, o projeto é estruturado em arquitetura limpa e separação clara entre aplicação, domínio e infraestrutura.
+
+## Integrantes
+
+- Caio Ribeiro Rodrigues - RM: 99759
+- Guilherme Riofrio Quaglio - RM: 550137
+- Elen Cabral - RM: 98790
+- Mary Speranzini - RM: 550242
+- Eduardo Jablinski - RM: 550975 
 
 ## Tecnologias Utilizadas
-- **.NET Core 8.0**
-- **Entity Framework Core 8.0.3**
-- **Oracle Database**
-- **ML.NET** para aprendizado de máquina
-- **Swagger** para documentação de APIs
-- **xUnit** para testes automatizados
 
-## Estrutura do Projeto
-- **Presentation (API)**: Contém os controllers e configuração da API.
-- **Application**: Contém a lógica de negócios e serviços.
-- **Domain**: Define entidades e interfaces do domínio.
-- **Infrastructure**: Implementa repositórios e configurações do banco de dados.
-- **Tests**: Contém testes unitários e de integração.
+- **C# / .NET 8**: Para o desenvolvimento da API e serviços.
+- **Entity Framework Core**: ORM para manipulação do banco de dados.
+- **Oracle**: Banco de dados relacional utilizado.
+- **ML.NET**: Usado para treinar um modelo de previsão de consumo elétrico.
+- **Swagger**: Documentação interativa da API.
 
 ## Funcionalidades
-1. Cadastro e autenticação de usuários.
-2. Gerenciamento de dispositivos vinculados aos usuários.
-3. Registro de logs de consumo energético.
-4. Predição de consumo utilizando ML.NET.
 
-## Endpoints Principais
-### Usuários
-- `POST /api/User`: Cria um novo usuário.
-- `GET /api/User/{id}`: Obtém um usuário pelo ID.
+- **Gerenciamento de Usuários**: Cadastro, autenticação e manipulação de dados dos usuários.
+- **Gerenciamento de Dispositivos**: Cadastro e atualização dos dispositivos elétricos dos usuários.
+- **Logs de Consumo**: Registro do consumo energético de cada dispositivo.
+- **Modelo de Previsão de Consumo**: Treinamento e previsão de consumo energético utilizando dados registrados.
 
-### Dispositivos
-- `POST /api/Device`: Adiciona um dispositivo.
-- `GET /api/Device/{id}`: Obtém um dispositivo pelo ID.
+## Estrutura do Projeto
 
-### Logs de Consumo
-- `POST /api/ConsumptionLog`: Adiciona um log de consumo.
-- `GET /api/ConsumptionLog/device/{deviceId}`: Obtém logs de um dispositivo.
+- **EcoHome.AuthService.API**: Contém a camada de apresentação da aplicação (Controllers).
+- **EcoHome.AuthService.Application**: Contém a lógica de negócio (Services) e classes de suporte, como o preditor ML.NET.
+- **EcoHome.AuthService.Domain**: Definições de entidades e interfaces do domínio.
+- **EcoHome.AuthService.Infrastructure**: Repositórios que realizam a persistência no banco de dados.
 
-### Predições
-- `POST /api/ConsumptionLog/predict`: Prediz o consumo energético com base nos dados fornecidos.
+## Setup do Projeto
 
-## Configuração
-1. Configure a string de conexão no `appsettings.json`:
-   ```json
-   "ConnectionStrings": {
-       "DefaultConnection": "User Id=USER;Password=PASSWORD;Data Source=SERVER"
-   }
+1. Clone o repositório:
+
+   ```bash
+   git clone https://github.com/seu-repositorio/EcoHome.AuthService.API.git
    ```
-2. Restaure os pacotes:
+
+2. Navegue até a pasta raiz do projeto:
+
+   ```bash
+   cd EcoHome.AuthService.API
+   ```
+
+3. Configure a string de conexão no arquivo `appsettings.json` com as credenciais do banco Oracle.
+
+4. Restaure as dependências e rode as migrações:
+
    ```bash
    dotnet restore
-   ```
-3. Aplique as migrações:
-   ```bash
    dotnet ef database update
    ```
-4. Execute o projeto:
+
+5. Execute o projeto:
+
    ```bash
-   dotnet run --project EcoHome.AuthService.API
+   dotnet run
    ```
 
+## Exemplos de Uso da API
+
+### Cadastro de Usuário
+
+**Endpoint**: `POST /api/users`
+
+**Corpo da Requisição**:
+
+```json
+{
+  "name": "John Doe",
+  "email": "johndoe@example.com",
+  "password": "password123"
+}
+```
+
+**Resposta**:
+
+```json
+{
+  "id": 1,
+  "name": "John Doe",
+  "email": "johndoe@example.com",
+  "createdAt": "2024-11-17T18:39:07.027155Z"
+}
+```
+
+### Registro de Consumo de um Dispositivo
+
+**Endpoint**: `POST /api/consumptionlog`
+
+**Corpo da Requisição**:
+
+```json
+{
+  "deviceId": 1,
+  "consumption": 150.5,
+  "timestamp": "2024-11-22T19:23:12.1809622Z"
+}
+```
+
+**Resposta**: Status `204 No Content`.
+
+### Treinamento do Modelo de Previsão
+
+**Endpoint**: `POST /api/consumptionlog/train`
+
+**Resposta**:
+
+```plaintext
+"Modelo treinado e salvo com sucesso."
+```
+
+### Previsão de Consumo Futuro
+
+**Endpoint**: `GET /api/consumptionlog/predict/{timestamp}`
+
+- **Parâmetro**: `timestamp` - Número de dias no futuro.
+
+**Exemplo de Requisição**: `GET /api/consumptionlog/predict/5`
+
+**Resposta**:
+
+```json
+{
+  "timestamp": "2024-11-25T20:39:14.4976912Z",
+  "predictedConsumption": 0.48455045
+}
+```
+
 ## Testes
-Os testes foram implementados utilizando xUnit. Para executar:
+
+O projeto conta com testes unitários e de integração para garantir a qualidade do código e o correto funcionamento dos componentes. Os testes podem ser executados com o seguinte comando:
+
 ```bash
 dotnet test
 ```
 
-## Estrutura de Pastas
-```plaintext
-├── EcoHome.AuthService.API
-├── EcoHome.AuthService.Application
-├── EcoHome.AuthService.Domain
-├── EcoHome.AuthService.Infrastructure.Data
-├── EcoHome.AuthService.Infrastructure.IoC
-├── EcoHome.AuthService.Tests
-```
+### Principais Testes
 
-## Contribuição
-1. Faça um fork do repositório.
-2. Crie um branch para sua feature:
-   ```bash
-   git checkout -b minha-feature
-   ```
-3. Envie um pull request após os testes.
+- **FullFlowIntegrationTests**: Testa a criação de um usuário e a associação de dispositivos.
+- **ConsumptionLogRepositoryTests**: Testa as operações de criação e consulta de logs de consumo.
+
+## Melhorias Futuras
+
+- **Autenticação via OAuth**: Implementar um mecanismo de autenticação mais robusto.
+- **Dashboard para Monitoramento**: Uma interface visual para monitorar o consumo energético em tempo real.
+- **Alertas Customizáveis**: Permitir que os usuários configurem alertas para consumo excessivo.
 
 ## Licença
-Este projeto é licenciado sob a MIT License.
+
+Este projeto está licenciado sob a licença MIT - veja o arquivo [LICENSE](LICENSE) para mais detalhes.
