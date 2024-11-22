@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EcoHome.AuthService.Infrastructure.Data.Migrations
 {
+    [Migration("20241117183601_AjusteCreatedAtNovo")]
     /// <inheritdoc />
     public partial class AjusteCreatedAtNovo : Migration
     {
@@ -15,13 +16,12 @@ namespace EcoHome.AuthService.Infrastructure.Data.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "NUMBER(10)", nullable: false)
-                        .Annotation("Oracle:Identity", "START WITH 1 INCREMENT BY 1"),
-                    Name = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
-                    Email = table.Column<string>(type: "NVARCHAR2(100)", maxLength: 100, nullable: false),
-                    PasswordHash = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false, defaultValueSql: "SYSTIMESTAMP AT TIME ZONE 'UTC'"),
-                    UpdatedAt = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: true)
+                    Id = table.Column<int>(type: "INT", nullable: false).Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "VARCHAR(2000)", nullable: false),
+                    Email = table.Column<string>(type: "VARCHAR(100)", maxLength: 100, nullable: false),
+                    PasswordHash = table.Column<string>(type: "VARCHAR(2000)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "DATETIME", nullable: false, defaultValueSql: "GETUTCDATE()"),
+                    UpdatedAt = table.Column<DateTime>(type: "DATETIME", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -32,13 +32,13 @@ namespace EcoHome.AuthService.Infrastructure.Data.Migrations
                 name: "Alerts",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "NUMBER(10)", nullable: false)
-                        .Annotation("Oracle:Identity", "START WITH 1 INCREMENT BY 1"),
-                    Message = table.Column<string>(type: "NVARCHAR2(200)", maxLength: 200, nullable: false),
-                    Status = table.Column<int>(type: "NUMBER(10)", nullable: false),
-                    UserId = table.Column<int>(type: "NUMBER(10)", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: true)
+                    Id = table.Column<int>(type: "INT", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Message = table.Column<string>(type: "VARCHAR(200)", maxLength: 200, nullable: false),
+                    Status = table.Column<int>(type: "INT", nullable: false),
+                    UserId = table.Column<int>(type: "INT", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "DATETIME", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "DATETIME", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -55,15 +55,15 @@ namespace EcoHome.AuthService.Infrastructure.Data.Migrations
                 name: "Devices",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "NUMBER(10)", nullable: false)
-                        .Annotation("Oracle:Identity", "START WITH 1 INCREMENT BY 1"),
-                    Name = table.Column<string>(type: "NVARCHAR2(50)", maxLength: 50, nullable: false),
+                    Id = table.Column<int>(type: "INT", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "VARCHAR(50)", maxLength: 50, nullable: false),
                     PowerConsumption = table.Column<decimal>(type: "DECIMAL(18,2)", precision: 18, scale: 2, nullable: false),
-                    Location = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
-                    Status = table.Column<int>(type: "NUMBER(10)", nullable: false),
-                    UserId = table.Column<int>(type: "NUMBER(10)", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: true)
+                    Location = table.Column<string>(type: "VARCHAR(2000)", nullable: false),
+                    Status = table.Column<int>(type: "INT", nullable: false),
+                    UserId = table.Column<int>(type: "INT", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "DATETIME", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "DATETIME", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -80,13 +80,13 @@ namespace EcoHome.AuthService.Infrastructure.Data.Migrations
                 name: "ConsumptionLogs",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "NUMBER(10)", nullable: false)
-                        .Annotation("Oracle:Identity", "START WITH 1 INCREMENT BY 1"),
-                    DeviceId = table.Column<int>(type: "NUMBER(10)", nullable: false),
-                    Timestamp = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false),
+                    Id = table.Column<int>(type: "INT", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DeviceId = table.Column<int>(type: "INT", nullable: false),
+                    Timestamp = table.Column<DateTime>(type: "DATETIME", nullable: false),
                     Consumption = table.Column<decimal>(type: "DECIMAL(18,2)", precision: 18, scale: 2, nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: true)
+                    CreatedAt = table.Column<DateTime>(type: "DATETIME", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "DATETIME", nullable: true)
                 },
                 constraints: table =>
                 {

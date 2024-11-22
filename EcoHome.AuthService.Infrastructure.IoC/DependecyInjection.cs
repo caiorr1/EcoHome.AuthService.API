@@ -13,7 +13,7 @@ namespace EcoHome.AuthService.Infrastructure.IoC
         {
 
             services.AddDbContext<AuthDbContext>(options =>
-                options.UseOracle(configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IDeviceRepository, DeviceRepository>();
@@ -24,7 +24,6 @@ namespace EcoHome.AuthService.Infrastructure.IoC
             services.AddScoped<DeviceService>(); 
             services.AddScoped<UserService>(); 
             services.AddScoped<AlertService>();
-
 
             return services;
         }

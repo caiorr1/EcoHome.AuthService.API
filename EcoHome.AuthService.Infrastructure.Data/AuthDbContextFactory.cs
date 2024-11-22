@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.IO;
 
 namespace EcoHome.AuthService.Infrastructure.Data
 {
@@ -23,7 +21,7 @@ namespace EcoHome.AuthService.Infrastructure.Data
                 throw new InvalidOperationException("String de conexão não encontrada em appsettings.json.");
             }
 
-            optionsBuilder.UseOracle(connectionString);
+            optionsBuilder.UseSqlServer(connectionString);
 
             return new AuthDbContext(optionsBuilder.Options);
         }
