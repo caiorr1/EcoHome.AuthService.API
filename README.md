@@ -3,38 +3,37 @@
 
 ## Visão Geral do Projeto
 
-EcoHome.AuthService.API é um serviço desenvolvido para oferecer funcionalidades de autenticação e gerenciamento de usuários, dispositivos e logs de consumo elétrico para o sistema EcoHome, uma solução de monitoramento e gestão de consumo energético em ambientes residenciais. O projeto utiliza .NET e EF Core, seguindo uma estrutura baseada em arquitetura limpa para separação de responsabilidades. Ele está integrado a uma pipeline na Azure DevOps e utiliza um banco de dados MySQL hospedado na Azure.
+EcoHome.AuthService.API é um serviço desenvolvido para oferecer funcionalidades de autenticação e gerenciamento de usuários, dispositivos e logs de consumo elétrico para o sistema EcoHome, uma solução de monitoramento e gestão de consumo energético em ambientes residenciais. Utilizando .NET e EF Core, o projeto é estruturado em arquitetura limpa e separação clara entre aplicação, domínio e infraestrutura.
 
 ## Integrantes
 
-- Caio Ribeiro Rodrigues - RM: 99759  
-- Guilherme Riofrio Quaglio - RM: 550137  
-- Elen Cabral - RM: 98790  
-- Mary Speranzini - RM: 550242  
-- Eduardo Jablinski - RM: 550975  
+- Caio Ribeiro Rodrigues - RM: 99759
+- Guilherme Riofrio Quaglio - RM: 550137
+- Elen Cabral - RM: 98790
+- Mary Speranzini - RM: 550242
+- Eduardo Jablinski - RM: 550975 
 
 ## Tecnologias Utilizadas
 
-- **C# / .NET 8**: Desenvolvimento da API e serviços.  
-- **Entity Framework Core**: ORM para manipulação do banco de dados.  
-- **MySQL na Azure**: Banco de dados relacional hospedado na Azure.  
-- **Azure DevOps**: Pipeline de CI/CD integrada ao projeto.  
-- **ML.NET**: Treinamento de modelos de previsão de consumo elétrico.  
-- **Swagger**: Documentação interativa da API.  
+- **C# / .NET 8**: Para o desenvolvimento da API e serviços.
+- **Entity Framework Core**: ORM para manipulação do banco de dados.
+- **Oracle**: Banco de dados relacional utilizado.
+- **ML.NET**: Usado para treinar um modelo de previsão de consumo elétrico.
+- **Swagger**: Documentação interativa da API.
 
 ## Funcionalidades
 
-- **Gerenciamento de Usuários**: Cadastro, autenticação e manipulação de dados dos usuários.  
-- **Gerenciamento de Dispositivos**: Cadastro e atualização dos dispositivos elétricos dos usuários.  
-- **Logs de Consumo**: Registro do consumo energético de cada dispositivo.  
-- **Modelo de Previsão de Consumo**: Treinamento e previsão de consumo energético utilizando dados registrados.  
+- **Gerenciamento de Usuários**: Cadastro, autenticação e manipulação de dados dos usuários.
+- **Gerenciamento de Dispositivos**: Cadastro e atualização dos dispositivos elétricos dos usuários.
+- **Logs de Consumo**: Registro do consumo energético de cada dispositivo.
+- **Modelo de Previsão de Consumo**: Treinamento e previsão de consumo energético utilizando dados registrados.
 
 ## Estrutura do Projeto
 
-- **EcoHome.AuthService.API**: Contém a camada de apresentação da aplicação (Controllers).  
-- **EcoHome.AuthService.Application**: Contém a lógica de negócio (Services) e classes de suporte, como o preditor ML.NET.  
-- **EcoHome.AuthService.Domain**: Definições de entidades e interfaces do domínio.  
-- **EcoHome.AuthService.Infrastructure**: Repositórios que realizam a persistência no banco de dados.  
+- **EcoHome.AuthService.API**: Contém a camada de apresentação da aplicação (Controllers).
+- **EcoHome.AuthService.Application**: Contém a lógica de negócio (Services) e classes de suporte, como o preditor ML.NET.
+- **EcoHome.AuthService.Domain**: Definições de entidades e interfaces do domínio.
+- **EcoHome.AuthService.Infrastructure**: Repositórios que realizam a persistência no banco de dados.
 
 ## Setup do Projeto
 
@@ -50,7 +49,7 @@ EcoHome.AuthService.API é um serviço desenvolvido para oferecer funcionalidade
    cd EcoHome.AuthService.API
    ```
 
-3. Configure a string de conexão no arquivo `appsettings.json` com as credenciais do banco MySQL hospedado na Azure.
+3. Configure a string de conexão no arquivo `appsettings.json` com as credenciais do banco Oracle.
 
 4. Restaure as dependências e rode as migrações:
 
@@ -69,7 +68,7 @@ EcoHome.AuthService.API é um serviço desenvolvido para oferecer funcionalidade
 
 ### Cadastro de Usuário
 
-**Endpoint**: `POST /api/users`  
+**Endpoint**: `POST /api/users`
 
 **Corpo da Requisição**:
 
@@ -94,7 +93,7 @@ EcoHome.AuthService.API é um serviço desenvolvido para oferecer funcionalidade
 
 ### Registro de Consumo de um Dispositivo
 
-**Endpoint**: `POST /api/consumptionlog`  
+**Endpoint**: `POST /api/consumptionlog`
 
 **Corpo da Requisição**:
 
@@ -106,11 +105,11 @@ EcoHome.AuthService.API é um serviço desenvolvido para oferecer funcionalidade
 }
 ```
 
-**Resposta**: Status `204 No Content`.  
+**Resposta**: Status `204 No Content`.
 
 ### Treinamento do Modelo de Previsão
 
-**Endpoint**: `POST /api/consumptionlog/train`  
+**Endpoint**: `POST /api/consumptionlog/train`
 
 **Resposta**:
 
@@ -120,11 +119,11 @@ EcoHome.AuthService.API é um serviço desenvolvido para oferecer funcionalidade
 
 ### Previsão de Consumo Futuro
 
-**Endpoint**: `GET /api/consumptionlog/predict/{timestamp}`  
+**Endpoint**: `GET /api/consumptionlog/predict/{timestamp}`
 
 - **Parâmetro**: `timestamp` - Número de dias no futuro.
 
-**Exemplo de Requisição**: `GET /api/consumptionlog/predict/5`  
+**Exemplo de Requisição**: `GET /api/consumptionlog/predict/5`
 
 **Resposta**:
 
@@ -145,15 +144,15 @@ dotnet test
 
 ### Principais Testes
 
-- **FullFlowIntegrationTests**: Testa a criação de um usuário e a associação de dispositivos.  
-- **ConsumptionLogRepositoryTests**: Testa as operações de criação e consulta de logs de consumo.  
+- **FullFlowIntegrationTests**: Testa a criação de um usuário e a associação de dispositivos.
+- **ConsumptionLogRepositoryTests**: Testa as operações de criação e consulta de logs de consumo.
 
 ## Melhorias Futuras
 
-- **Autenticação via OAuth**: Implementar um mecanismo de autenticação mais robusto.  
-- **Dashboard para Monitoramento**: Uma interface visual para monitorar o consumo energético em tempo real.  
-- **Alertas Customizáveis**: Permitir que os usuários configurem alertas para consumo excessivo.  
+- **Autenticação via OAuth**: Implementar um mecanismo de autenticação mais robusto.
+- **Dashboard para Monitoramento**: Uma interface visual para monitorar o consumo energético em tempo real.
+- **Alertas Customizáveis**: Permitir que os usuários configurem alertas para consumo excessivo.
 
 ## Licença
 
-Este projeto está licenciado sob a licença MIT - veja o arquivo [LICENSE](LICENSE) para mais detalhes.  
+Este projeto está licenciado sob a licença MIT - veja o arquivo [LICENSE](LICENSE) para mais detalhes.
