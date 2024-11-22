@@ -1,7 +1,5 @@
 ﻿using EcoHome.AuthService.Domain.Entities;
-using FluentMigrator.SqlServer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EcoHome.AuthService.Infrastructure.Data
 {
@@ -16,6 +14,8 @@ namespace EcoHome.AuthService.Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<UserEntity>().HasKey(u => u.Id);
+
             modelBuilder.Entity<UserEntity>()
                 .Property(u => u.Email)
                 .IsRequired()
@@ -27,7 +27,7 @@ namespace EcoHome.AuthService.Infrastructure.Data
 
             modelBuilder.Entity<UserEntity>()
                 .Property(u => u.CreatedAt)
-                .HasDefaultValueSql("GETUTCDATE()")
+                .HasDefaultValueSql("SYSTIMESTAMP AT TIME ZONE 'UTC'")
                 .IsRequired();
 
 
@@ -41,7 +41,7 @@ namespace EcoHome.AuthService.Infrastructure.Data
             modelBuilder.Entity<DeviceEntity>()
                 .Property(d => d.PowerConsumption)
                 .IsRequired()
-                .HasPrecision(18, 2); 
+                .HasPrecision(18, 2);
 
             modelBuilder.Entity<DeviceEntity>()
                 .HasOne(d => d.User)
@@ -67,7 +67,7 @@ namespace EcoHome.AuthService.Infrastructure.Data
             modelBuilder.Entity<ConsumptionLogEntity>()
                 .Property(cl => cl.Consumption)
                 .IsRequired()
-                .HasPrecision(18, 2); 
+                .HasPrecision(18, 2);
 
             modelBuilder.Entity<ConsumptionLogEntity>()
                 .HasOne(cl => cl.Device)

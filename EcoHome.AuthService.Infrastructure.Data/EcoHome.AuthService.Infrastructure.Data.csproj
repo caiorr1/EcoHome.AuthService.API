@@ -21,10 +21,15 @@
 		</PackageReference>
 		<PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="9.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.0" />
+		<PackageReference Include="Oracle.EntityFrameworkCore" Version="8.23.60" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\EcoHome.AuthService.Domain\EcoHome.AuthService.Domain.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Migrations\" />
 	</ItemGroup>
 
 </Project>

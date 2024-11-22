@@ -13,17 +13,18 @@ namespace EcoHome.AuthService.Infrastructure.IoC
         {
 
             services.AddDbContext<AuthDbContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+                options.UseOracle(configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IDeviceRepository, DeviceRepository>();
             services.AddScoped<IConsumptionLogRepository, ConsumptionLogRepository>();
             services.AddScoped<IAlertRepository, AlertRepository>();
 
-            services.AddScoped<ConsumptionLogService>(); 
-            services.AddScoped<DeviceService>(); 
-            services.AddScoped<UserService>(); 
+            services.AddScoped<ConsumptionLogService>();
+            services.AddScoped<DeviceService>();
+            services.AddScoped<UserService>();
             services.AddScoped<AlertService>();
+
 
             return services;
         }
