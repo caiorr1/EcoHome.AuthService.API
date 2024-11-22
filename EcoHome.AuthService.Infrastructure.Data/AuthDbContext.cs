@@ -1,5 +1,7 @@
 ﻿using EcoHome.AuthService.Domain.Entities;
+using FluentMigrator.SqlServer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EcoHome.AuthService.Infrastructure.Data
 {
@@ -14,8 +16,6 @@ namespace EcoHome.AuthService.Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<UserEntity>().HasKey(u => u.Id);
-
             modelBuilder.Entity<UserEntity>()
                 .Property(u => u.Email)
                 .IsRequired()
@@ -27,7 +27,7 @@ namespace EcoHome.AuthService.Infrastructure.Data
 
             modelBuilder.Entity<UserEntity>()
                 .Property(u => u.CreatedAt)
-                .HasDefaultValueSql("SYSTIMESTAMP AT TIME ZONE 'UTC'")
+                .HasDefaultValueSql("GETUTCDATE()")
                 .IsRequired();
 
 
